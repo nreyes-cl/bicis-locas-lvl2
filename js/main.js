@@ -5,8 +5,9 @@ function validateForm(){
 	const lastname = $('#lastname').val().trim();
 	const email = $('#input-email').val().trim();
 	const password = $('#input-password').val().trim();
-	const pattern = new RegExp('^[A-Z]+$', 'i');
-	const pattern2 = new RegExp('^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$');
+	const select = $('#input-option-bike')[0].value;
+	const pattern = new RegExp('^[A-Z\u00f1\u00d1]+$', 'i');
+	const pattern2 = new RegExp('^[a-z0-9]+(.[-_a-z0-9]+)@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,15})$', 'i');
 	
 	/* Ahora pruebo 1 a 1 los valores */
 	if (name == '') {
@@ -41,12 +42,15 @@ function validateForm(){
 	if (password == '') {
 		$('#input-password').parent().append('<span>La contraseña no puede ser vacía</span>');
 	}else{
-		if (password.length <= 6) {
-			$('#input-password').parent().append('<span>La contraseña debe tener más de 6 caracteres</span>');
+		if (password == 'password' || password == '123456' || password == '098754') {
+			$('#input-password').parent().append('<span>La contraseña no puede ser password o 123456 o 098754</span>');
 		}else{
-			if (password == 'password' || password == '123456' || password == '098754') {
-				$('#input-password').parent().append('<span>La contraseña no puede ser password o 123456 o 098754</span>');
+			if (password.length < 6) {
+				$('#input-password').parent().append('<span>La contraseña debe tener más de 6 caracteres</span>');
 			}
 		}
+	}
+	if (select == 0) {
+		$('#input-option-bike').parent().append('<span>El tipo de bicicleta no puede ser vacío</span>');
 	}
 }
